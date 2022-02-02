@@ -24,6 +24,14 @@ def create_friend():
     User.save(data)
     # Don't forget to redirect after saving to the database.
     return redirect('/')
+
+@app.route('/<id>')
+def showuser():
+    user = user.id
+    user = User.get_all()
+
+
+    return render_template("indexshow.html", )
 if __name__ == "__main__":
     app.run(debug=True)
 

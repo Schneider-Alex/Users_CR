@@ -16,14 +16,11 @@
             <th>Last Name</th>
             <th>Email</th>
         </tr>
-        {% for one_user in all_users %}
             <tr>
                 <td>{{one_user.first_name}}</td>
                 <td>{{one_user.last_name}}</td>
                 <td>{{one_user.email}}</td> 
-                <td style="display: flex; justify-content: space-around;"><a href='/{{one_user.id}}'>Show</a><p> | </p><a href='/{{one_user.id}}/edit'>Edit</a><p> | </p><a href='/{{one_user.id}}/delete'>Delete</a></td>
             </tr>
-        {% endfor %}
 
 
 
