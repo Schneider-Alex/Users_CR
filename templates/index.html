@@ -21,19 +21,14 @@
                 <td>{{one_user.first_name}}</td>
                 <td>{{one_user.last_name}}</td>
                 <td>{{one_user.email}}</td> 
-                <td style="display: flex; justify-content: space-around;"><a href='/{{one_user.id}}'>Show</a><p> | </p><a href='/{{one_user.id}}/edit'>Edit</a><p> | </p><a href='/{{one_user.id}}/delete'>Delete</a></td>
+                <td style="display: flex; justify-content: space-around;"><a href='/users/{{one_user.id}}'>Show</a><p> | </p><a href='users/{{one_user.id}}/edit'>Edit</a><p> | </p><a href='users/{{one_user.id}}/delete'>Delete</a></td>
             </tr>
         {% endfor %}
-
-
-
-
-
     </table>
     
 
 <form action="/newuserpage">
-    <button>Add New User</button>
+    <button class="btn btn-primary">Add New User</button>
 </form> 
 </body>
 </html>

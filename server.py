@@ -1,7 +1,9 @@
-from flask import Flask, render_template,request, redirect
+from flask import Flask, render_template,request, redirect, session
 # import the class from friend.py
 from user import User
+
 app = Flask(__name__)
+app.secret_key = 'keep it secret, keep it safe'
 @app.route('/')
 def index():
     users = User.get_all()
@@ -13,6 +15,7 @@ def newuserpage():
 
 @app.route('/create_user', methods=["POST"])
 def create_friend():
+    session['createedit'] = 'create'
     # First we make a data dictionary from our request.form coming from our template.
     # The keys in data need to line up exactly with the variables in our query string.
     data = {
@@ -25,13 +28,46 @@ def create_friend():
     # Don't forget to redirect after saving to the database.
     return redirect('/')
 
-@app.route('/<id>')
-def showuser():
-    user = user.id
-    user = User.get_all()
+@app.route('/users/<int:userid>')
+def showuser(userid):
+    data = {
+        "id" : userid
+    }
+    showuser=User.pull_one_user(data)
+    return render_template("indexshow.html", showuser=showuser)
+
+@app.route('/users/update/<int:userid>',methods=['POST'])
+def update(userid):
+    data = {
+        "id" : userid,
+        "first_name": request.form["fnameedit"],
+        "last_name" : request.form["lnameedit"],
+        "email" : request.form["emailedit"]
+    }
+    User.edituser(data)
+    return redirect ('/')
 
 
-    return render_template("indexshow.html", )
+@app.route('/users/<int:userid>/edit')
+def edit(userid):
+    data ={ 
+    "id": userid
+    }
+    return render_template("indexedit.html",user=User.pull_one_user(data)[0])
+
+@app.route('/users/<int:userid>/delete')
+def deleteuser(userid):
+    data={
+        "id": userid
+    }
+    User.clear_user_data(data)
+    return redirect('/')
+
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
