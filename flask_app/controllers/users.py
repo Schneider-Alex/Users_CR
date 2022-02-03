@@ -14,7 +14,7 @@ def newuserpage():
 
 @app.route('/create_user', methods=["POST"])
 def create_friend():
-    session['createedit'] = 'create'
+    # session['createedit'] = 'create'
     # First we make a data dictionary from our request.form coming from our template.
     # The keys in data need to line up exactly with the variables in our query string.
     data = {
